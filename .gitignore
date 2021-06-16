@@ -1,0 +1,27 @@
+*.py[cod]
+.DS_Store
+.mypy_cache/
+# Translations
+*.mo
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+\.idea/
+.ropeproject
+# Vim swap files
+*.swp
+.coverage
+htmlcov/
+*.log*
+dump.rdb
+*.p12
+# Vscode
+.vscode
+# Testing
+pytest.ini
+.pytest_cache/
+.env
+logs/
+*.lock
+media/

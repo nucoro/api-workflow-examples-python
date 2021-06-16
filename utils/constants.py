@@ -1,0 +1,3 @@
+PREFIX_URL = '/api/v2'
+COUNTRY_CODE_US = 'US'
+INTEGRATION_AUTH_TOKEN_URL = '/oauth/token/'
