@@ -165,21 +165,25 @@ class ClientService:
         return response.ok, response.json()
 
     @classmethod
-    def do_risk_assessment(cls, client):
-        """
-            Fill the risk assessment for the client
-        """
+    def get_questions_for_risk_assessment(cls, client):
         url = reverse('risk-questions')
         response = requests.get(url, headers={'Authorization': client._token.get('access')})
         assert response.ok
         data = [random.choice(data['choices'])['code'] for data in response.json()['results']]
+        return data
 
+    @classmethod
+    def fill_risk_assessment(cls, client, questions):
         # Create the assessment for the user
         url = reverse('client-fill-risk-assessment')
-        response = requests.post(url, json={'choices': data}, headers={'Authorization': client._token.get('access')})
+        response = requests.post(url, json={'choices': questions}, headers={
+                                 'Authorization': client._token.get('access')})
         assert response.ok
         assessment_uuid = response.json()['uuid']
+        return assessment_uuid
 
+    @classmethod
+    def complete_risk_assessment(cls, client, assessment_uuid):
         # Complete the assessment
         url = reverse('client-complete-risk-assessment', uuid=assessment_uuid)
         response = requests.post(url, headers={'Authorization': client._token.get('access')})
